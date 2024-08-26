@@ -12,7 +12,7 @@
                 $i = 0;
                 while ($slide = mysqli_fetch_assoc($execute_query)) {
                     $active = $i === 0 ? 'active' : '';
-                    echo "<button type='button' data-bs-target='#carouselExampleDark' data-bs-slide-to='$i' class='$active' aria-current='true' aria-label='Slide ".($i + 1)."'></button>";
+                    echo "<button type='button' data-bs-target='#carouselExampleDark' data-bs-slide-to='$i' class='$active' aria-current='true' aria-label='Slide " . ($i + 1) . "'></button>";
                     $i++;
                 }
                 mysqli_data_seek($execute_query, 0); // Reset the pointer to loop through items
@@ -30,12 +30,12 @@
                     // $sliderCaption = $slide['slider_caption'];
 
                     echo "<div class='carousel-item $active' data-bs-interval='10000'>";
-                        echo "<img src='../admin-panel/$sliderImage' class='d-block w-100' alt='$sliderTitle'>";
-                        echo "<div class='carousel-caption d-none d-md-block'>";
-                            echo "<div class='bg_transparent_slider '>";
-                            echo "<h3 class='text-danger fw-bold'>$sliderTitle</h3>";
-                            echo "</div>";
-                        echo "</div>";
+                    echo "<img src='../admin-panel/$sliderImage' class='d-block w-100' alt='$sliderTitle'>";
+                    echo "<div class='carousel-caption d-none d-md-block'>";
+                    echo "<div class='bg_transparent_slider '>";
+                    echo "<h3 class='text-danger fw-bold'>$sliderTitle</h3>";
+                    echo "</div>";
+                    echo "</div>";
                     echo "</div>";
                     $i++;
                 }
@@ -53,36 +53,35 @@
     </div>
 </section>
 <!--slider area end-->
-<!--banner area start-->
-<div class="banner_area">
+<!--product area start-->
+<div class="product_area  mb-95">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <figure class="single_banner">
-                    <div class="banner_thumb">
-                        <a href="shop.html"><img src="./assets/img/bg/banner1.jpg" alt=""></a>
-                        <div class="banner_content">
-                            <h3>Big Sale Products</h3>
-                            <h2>Plants <br> For Interior</h2>
-                            <a href="shop.html">Shop Now</a>
-                        </div>
-                    </div>
-                </figure>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <figure class="single_banner">
-                    <div class="banner_thumb">
-                        <a href="shop.html"><img src="./assets/img/bg/banner2.jpg" alt=""></a>
-                        <div class="banner_content">
-                            <h3>Top Products</h3>
-                            <h2>Plants <br> For Healthy</h2>
-                            <a href="shop.html">Shop Now</a>
-                        </div>
-                    </div>
-                </figure>
+            <div class="col-md-12">
+                <div class="plant_box d-grid">
+                    <?php 
+                        $query = mysqli_query($connection,"SELECT * FROM tbl_plants WHERE plant_status='available'");
+                        if(mysqli_num_rows($query)>0){
+                            foreach($query as $plant){
+                                echo "<div class='card' style='width: 17rem;'>";
+                                echo "<a href='plant_detail.php?id = $plant[id]' class='text-decoration-none'>";
+                                echo "<img src='../admin-panel/$plant[plant_image]' class='card-img-top' alt='...'>";
+                                echo "<div class='card-body'>";
+                                echo "<h5 class='card-title'>$plant[plant_name]</h5>";
+                                echo "<p class='card-text'>$plant[plant_description]</p>";
+                                echo "</a>";
+                                echo "</a>";
+                                echo "</div>";
+                            }
+                        }else{
+                            echo "Plants Not Found";
+                        }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!--banner area end-->
+<!--product area end-->
+
 <?php include("./components/bottom.php") ?>

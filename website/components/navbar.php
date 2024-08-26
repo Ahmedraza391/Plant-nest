@@ -198,12 +198,23 @@
                     <div class="col-lg-3 col-md-6 col-6">
                         <div class="header_account_area header_account5">
                             <div class="header_account-list top_links">
-                                <a href="#"><i class="icon-users"></i></a>
-                                <ul class="dropdown_links">
-                                    <li><a href="user_profile.php">Profile</a></li>
-                                    <li><a href="checkout.php">Lougout</a></li>
-                                    <li><a href="cart.php">Shopping Cart</a></li>
-                                </ul>
+                                <?php 
+                                    if(isset($_SESSION['user_login'])){
+                                        echo "<a href='#'><i class='icon-user'></i></a>";
+                                        echo "<ul class='dropdown_links'>";
+                                        echo "<li><a href='cart.php'>Shopping Cart</a></li>";
+                                        echo "<hr class='m-0'>";
+                                        echo "<li><a href='user_profile.php'>Profile</a></li>";
+                                        echo "<li><a href='logout.php'>Lougout</a></li>";
+                                        echo "</ul>";
+                                    }else{
+                                        echo "<a href='#'><i class='icon-user'></i></a>";
+                                        echo "<ul class='dropdown_links'>";
+                                        echo "<li><a href='login.php'>Login</a></li>";
+                                        echo "<li><a href='register.php'>Register</a></li>";
+                                        echo "</ul>";
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>

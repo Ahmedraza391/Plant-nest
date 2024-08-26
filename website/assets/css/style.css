@@ -10751,4 +10751,10 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   padding: 20px;
   border-radius: 10px;
 }
+.plant_box {
+  width: 100%;
+  display: grid !important;
+  grid-template-columns: auto auto auto;
+}
+
 /* custom css */
