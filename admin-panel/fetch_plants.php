@@ -30,12 +30,12 @@ if (mysqli_num_rows($query) > 0) {
 
         // View button
         $output .= "<td>";
-        $output .= "<button class='btn btn-light btn_sm view_plant' data-id='{$data['id']}' data-name='" . htmlspecialchars($data['plant_name'], ENT_QUOTES, 'UTF-8') . "' data-description='" . htmlspecialchars($data['plant_description'], ENT_QUOTES, 'UTF-8') . "' data-category='" . htmlspecialchars($data['category_name'], ENT_QUOTES, 'UTF-8') . "' data-plant_image='$data[plant_image]' >View</button>";
+        $output .= "<button class='btn btn-light btn_sm view_plant' data-id='{$data['id']}' data-name='" . htmlspecialchars($data['plant_name'], ENT_QUOTES, 'UTF-8') . "' data-description='" . htmlspecialchars($data['plant_description'], ENT_QUOTES, 'UTF-8') . "' data-category='" . htmlspecialchars($data['category_name'], ENT_QUOTES, 'UTF-8') . "' data-plant_image='$data[plant_image]' data-price='$data[plant_price]' >View</button>";
         $output .= "</td>";
 
         // Edit button
         $output .= "<td>";
-        $output .= "<button class='btn btn-success btn_sm edit_plant' data-id='{$data['id']}' data-name='" . htmlspecialchars($data['plant_name'], ENT_QUOTES, 'UTF-8') . "' data-description='" . htmlspecialchars($data['plant_description'], ENT_QUOTES, 'UTF-8') . "' data-category_id='{$data['category_id']}' data-category_name='" . htmlspecialchars($data['category_name'], ENT_QUOTES, 'UTF-8') . "' data-plant_image='$data[plant_image]'>Edit</button>";
+        $output .= "<button class='btn btn-success btn_sm edit_plant' data-id='{$data['id']}' data-name='" . htmlspecialchars($data['plant_name'], ENT_QUOTES, 'UTF-8') . "' data-description='" . htmlspecialchars($data['plant_description'], ENT_QUOTES, 'UTF-8') . "' data-category_id='{$data['category_id']}' data-category_name='" . htmlspecialchars($data['category_name'], ENT_QUOTES, 'UTF-8') . "' data-plant_image='$data[plant_image]' data-price='$data[plant_price]'>Edit</button>";
         $output .= "</td>";
 
         $output .= "</tr>";

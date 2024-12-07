@@ -1,0 +1,3 @@
+phley plants.php par category wise sor wise plants fetch karwanay ha
+aur uskay bad search button kai click par fetch karwanay ha
+phir uskay bad small screen ma navbar ma category kai through fetch karwanay ha

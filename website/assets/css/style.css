@@ -3400,6 +3400,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_thumb {
   position: relative;
   overflow: hidden;
+  height: 300px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 .product_thumb a.secondary_img {
   position: absolute;
@@ -10755,6 +10757,73 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   width: 100%;
   display: grid !important;
   grid-template-columns: auto auto auto;
+}
+/* Container for the entire content */
+.custom-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Flexbox layout for the row */
+.custom-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between cards */
+}
+
+/* Card container */
+.card-container {
+  flex: 1 1 calc(25% - 20px); /* 4 cards per row with space between */
+  box-sizing: border-box;
+}
+
+/* Custom card styles */
+.custom-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 350px;
+  width: 300px;
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  background-color: #fff;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Image styling */
+.custom-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Card body styling */
+.custom-card-body {
+  padding: 15px;
+}
+
+/* Card title styling */
+.custom-card-title {
+  font-size: 18px;
+  margin: 0 0 10px;
+  color: #333;
+}
+
+/* Card text styling */
+.custom-card-text {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Custom link styling */
+.custom-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* custom css */

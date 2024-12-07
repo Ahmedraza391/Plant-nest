@@ -58,6 +58,10 @@ if (!isset($_SESSION['admin_login'])) {
                             <label for="plant_name">Plant's Name</label>
                         </div>
                         <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="plant_price" name="plant_price" placeholder="" required>
+                            <label for="plant_price">Plant's Price</label>
+                        </div>
+                        <div class="form-floating mb-3">
                             <textarea class="form-control" placeholder="" id="plant_desc" name="plant_desc" required></textarea>
                             <label for="plant_desc">Plant's Description</label>
                         </div>
@@ -109,6 +113,7 @@ if (!isset($_SESSION['admin_login'])) {
                                 </div>
                                 <h5 class="mb-3">Plant ID : #<span id="view_plant_id"></span></h5>
                                 <h5 class="mb-3">Plant Name : <span id="view_plant_name"></span></h5>
+                                <h5 class="mb-3">Plant Price : <span id="view_plant_price"></span></h5>
                                 <h5 class="mb-3">Plant Category : <span id="view_category"></span></h5>
                                 <h5 class="mb-3">Plant Description : <p style="display: contents;" id="view_plant_desc"></p>
                                 </h5>
@@ -147,11 +152,16 @@ if (!isset($_SESSION['admin_login'])) {
                     </form>
                     <form id="edit_plant_form" method="post">
                         <input type="hidden" name="edit_plant_id" id="edit_plant_id">
+                        
                         <div class="form-floating mb-3">
                             <select class="form-select text-dark" name="edit_plant_category" id="edit_plant_category" required>
                                 <option selected hidden value="">Select Category</option>
                             </select>
                             <label for="edit_plant_category">Categories</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="edit_plant_price" name="edit_plant_price" placeholder="" required>
+                            <label for="edit_plant_price">Plant's Price</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="edit_plant" name="edit_plant" placeholder="" required>

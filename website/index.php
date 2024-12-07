@@ -1,5 +1,8 @@
 <?php $page = "home"; ?>
-<?php include("./components/top.php") ?>
+<?php
+include("./components/top.php");
+$_SESSION['page_url'] = $_SERVER['REQUEST_URI'];
+?>
 <!--slider area start-->
 <section class="slider_section mb-30">
     <div id="carouselExampleDark" class="carousel carousel-dark slide">
@@ -15,7 +18,7 @@
                     echo "<button type='button' data-bs-target='#carouselExampleDark' data-bs-slide-to='$i' class='$active' aria-current='true' aria-label='Slide " . ($i + 1) . "'></button>";
                     $i++;
                 }
-                mysqli_data_seek($execute_query, 0); // Reset the pointer to loop through items
+                mysqli_data_seek($execute_query, 0); 
             }
             ?>
         </div>
@@ -53,35 +56,40 @@
     </div>
 </section>
 <!--slider area end-->
-<!--product area start-->
-<div class="product_area  mb-95">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="plant_box d-grid">
-                    <?php 
-                        $query = mysqli_query($connection,"SELECT * FROM tbl_plants WHERE plant_status='available'");
-                        if(mysqli_num_rows($query)>0){
-                            foreach($query as $plant){
-                                echo "<div class='card' style='width: 17rem;'>";
-                                echo "<a href='plant_detail.php?id = $plant[id]' class='text-decoration-none'>";
-                                echo "<img src='../admin-panel/$plant[plant_image]' class='card-img-top' alt='...'>";
-                                echo "<div class='card-body'>";
-                                echo "<h5 class='card-title'>$plant[plant_name]</h5>";
-                                echo "<p class='card-text'>$plant[plant_description]</p>";
-                                echo "</a>";
-                                echo "</a>";
-                                echo "</div>";
-                            }
-                        }else{
-                            echo "Plants Not Found";
-                        }
-                    ?>
-                </div>
-            </div>
+
+<div class="product_area my-5">
+    <div class="heading mb-5">
+        <h2 class="text-center text-success fw-bold">Our Plants</h2>
+    </div>
+    <div class="custom-container container">
+        <div class="custom-row row">
+            <?php
+            $query = mysqli_query($connection, "SELECT * FROM tbl_plants WHERE plant_status='available' LIMIT 6");
+            if (mysqli_num_rows($query) > 0) {
+                foreach ($query as $plant) {
+                    echo "<div class='card-container col m-auto'>"; // Custom container for the card
+                    echo "<div class='custom-card'>"; // Custom card class
+                    echo "<a href='plant_detail.php?id=$plant[id]' class='custom-link'>";
+                    echo "<img src='../admin-panel/$plant[plant_image]' class='custom-card-image' alt='Plant Image'>";
+                    echo "<div class='custom-card-body'>";
+                    echo "<h5 class='custom-card-title'>$plant[plant_name]</h5>";
+                    // Fetching only the first 100 characters of the description
+                    $short_description = substr($plant['plant_description'], 0, 100);
+                    echo "<p class='custom-card-text'>$short_description...</p>";
+                    echo "</div>";
+                    echo "</a>";
+                    echo "</div>";
+                    echo "</div>";
+                }
+            } else {
+                echo "Plants Not Found";
+            }
+            ?>
         </div>
     </div>
+
 </div>
-<!--product area end-->
+
+
 
 <?php include("./components/bottom.php") ?>

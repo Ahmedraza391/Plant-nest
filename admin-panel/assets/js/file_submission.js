@@ -146,6 +146,7 @@ $(document).ready(function () {
             $("#view_plant_modal").modal("show");
             $("#view_plant_id").text(data.id);
             $("#view_plant_name").text(data.name);
+            $("#view_plant_price").text(data.price);
             $("#view_plant_desc").text(data.description);
             $("#view_category").text(data.category);
             $("#view_plant_image").attr("src", data.plant_image)
@@ -154,12 +155,14 @@ $(document).ready(function () {
             let data = $(this).data();
             let id = data.id;
             let name = data.name;
+            let price = data.price;
             let desc = data.description;
             let category_id = data.category_id;
             let plant_image = data.plant_image;
             $("#edit_plant_modal").modal("show");
             $("#edit_plant_id").val(id);
             $("#edit_plant").val(name);
+            $("#edit_plant_price").val(price);
             $("#edit_plant_desc").val(desc);
             $("#show_plant_image").attr("src", plant_image);
             $("#edit_plant_name_image").val(name);

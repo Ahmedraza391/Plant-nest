@@ -23,119 +23,81 @@ if (!isset($_SESSION['user_login'])) {
     </div>
 </div>
 <!--breadcrumbs area end-->
+<?php 
+    // Fetch the cart items for the logged-in user
+    $user_id = $_SESSION['user_login']['user_id'];
+    $query = "SELECT tbl_cart.*, tbl_plants.* 
+              FROM tbl_cart 
+              INNER JOIN tbl_plants ON tbl_cart.plant_id = tbl_plants.id 
+              WHERE tbl_cart.user_id = $user_id";
+    $execute_query = mysqli_query($connection, $query);
+
+    // Initialize variables for subtotal and total
+    $subtotal = 0;
+?>
 
 <!--shopping cart area start -->
 <div class="shopping_cart_area mt-100">
     <div class="container">
-        <form action="#">
+        <form action="update_cart.php" method="POST">
             <div class="row">
                 <div class="col-12">
                     <div class="table_desc">
                         <div class="cart_page table-responsive">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th class="product_remove">Delete</th>
-                                        <th class="product_thumb">Image</th>
-                                        <th class="product_name">Product</th>
-                                        <th class="product-price">Price</th>
-                                        <th class="product_quantity">Quantity</th>
-                                        <th class="product_total">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a>
-                                        </td>
-                                        <td class="product_thumb"><a href="#"><img
-                                                    src="assets/img/s-product/product.jpg" alt=""></a></td>
-                                        <td class="product_name"><a href="#">Handbag fringilla</a></td>
-                                        <td class="product-price">£65.00</td>
-                                        <td class="product_quantity"><label>Quantity</label> <input min="1"
-                                                max="100" value="1" type="number"></td>
-                                        <td class="product_total">£130.00</td>
-
-
-                                    </tr>
-
-                                    <tr>
-                                        <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a>
-                                        </td>
-                                        <td class="product_thumb"><a href="#"><img
-                                                    src="assets/img/s-product/product2.jpg" alt=""></a></td>
-                                        <td class="product_name"><a href="#">Handbags justo</a></td>
-                                        <td class="product-price">£90.00</td>
-                                        <td class="product_quantity"><label>Quantity</label> <input min="1"
-                                                max="100" value="1" type="number"></td>
-                                        <td class="product_total">£180.00</td>
-
-
-                                    </tr>
-                                    <tr>
-                                        <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a>
-                                        </td>
-                                        <td class="product_thumb"><a href="#"><img
-                                                    src="assets/img/s-product/product3.jpg" alt=""></a></td>
-                                        <td class="product_name"><a href="#">Handbag elit</a></td>
-                                        <td class="product-price">£80.00</td>
-                                        <td class="product_quantity"><label>Quantity</label> <input min="1"
-                                                max="100" value="1" type="number"></td>
-                                        <td class="product_total">£160.00</td>
-
-
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="cart_submit">
-                            <button type="submit">update cart</button>
+                            <?php if (mysqli_num_rows($execute_query) > 0) { ?>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="product_remove">Delete</th>
+                                            <th class="product_thumb">Image</th>
+                                            <th class="product_name">Product</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product_quantity">Quantity</th>
+                                            <th class="product_total">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php while($row = mysqli_fetch_assoc($execute_query)) { 
+                                            $total_price = $row['plant_price'] * $row['plant_quantity'];
+                                            $subtotal += $total_price;
+                                        ?>
+                                        <tr>
+                                            <td class="product_remove">
+                                                <a href="remove_from_cart.php?cart_id=<?php echo $row['cart_id']; ?>" onclick="return confirmation()"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                            <td class="product_thumb">
+                                                <a href="#"><img src="../admin-panel/<?php echo $row['plant_image']; ?>" alt="<?php echo $row['plant_name']; ?>" width="150px" height="150px"></a>
+                                            </td>
+                                            <td class="product_name"><a href="#"><?php echo $row['plant_name']; ?></a></td>
+                                            <td class="product-price"><?php echo number_format($row['plant_price'], 2); ?></td>
+                                            <td class="product_quantity">
+                                                <input type="number" name="quantities[<?php echo $row['cart_id']; ?>]" min="1" max="100" value="<?php echo $row['plant_quantity']; ?>" class="form-control">
+                                            </td>
+                                            <td class="product_total"><?php echo number_format($total_price, 2); ?></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                                <div class="cart_submit">
+                                    <button type="submit">Update Cart</button>
+                                </div>
+                            <?php } else { ?>
+                                <p class="text-center">You don't have any plants in your cart.</p>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--coupon code area start-->
-            <div class="coupon_area">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="coupon_code left">
-                            <h3>Coupon</h3>
-                            <div class="coupon_inner">
-                                <p>Enter your coupon code if you have one.</p>
-                                <input placeholder="Coupon code" type="text">
-                                <button type="submit">Apply coupon</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="coupon_code right">
-                            <h3>Cart Totals</h3>
-                            <div class="coupon_inner">
-                                <div class="cart_subtotal">
-                                    <p>Subtotal</p>
-                                    <p class="cart_amount">£215.00</p>
-                                </div>
-                                <div class="cart_subtotal ">
-                                    <p>Shipping</p>
-                                    <p class="cart_amount"><span>Flat Rate:</span> £255.00</p>
-                                </div>
-                                <a href="#">Calculate shipping</a>
-
-                                <div class="cart_subtotal">
-                                    <p>Total</p>
-                                    <p class="cart_amount">£215.00</p>
-                                </div>
-                                <div class="checkout_btn">
-                                    <a href="#">Proceed to Checkout</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--coupon code area end-->
+            <!-- Coupon code and Cart Totals omitted as requested -->
         </form>
     </div>
 </div>
 <!--shopping cart area end -->
+
+
+<script>
+    function confirmation(){
+        return confirm("Are You Sure You Want To Delete This Plant");
+    }
+</script>
 <?php include("./components/bottom.php"); ?>

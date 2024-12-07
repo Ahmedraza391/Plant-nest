@@ -5,6 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data
     $plant_name = $_POST['plant_name'];
     $plant_desc = $_POST['plant_desc'];
+    $plant_price = $_POST['plant_price'];
     $plant_category = $_POST['plant_category'];
 
     // Initialize image path variable
@@ -31,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insert plant data into the database
-    $query = "INSERT INTO tbl_plants (plant_name, plant_description, category_id, plant_image) VALUES (?, ?, ?, ?)";
+    $query = "INSERT INTO tbl_plants (plant_name, plant_description, category_id, plant_image,plant_price) VALUES (?, ?, ?, ?, ?)";
     $stmt = $connection->prepare($query);
-    $stmt->bind_param("ssss", $plant_name, $plant_desc, $plant_category, $image_path);
+    $stmt->bind_param("sssss", $plant_name, $plant_desc, $plant_category, $image_path,$plant_price);
 
     // Execute and check for errors
     if ($stmt->execute()) {

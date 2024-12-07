@@ -7,13 +7,14 @@ if ($connection === false) {
 
 $id = $_POST['edit_plant_id'];
 $name = $_POST['edit_plant'];
+$price = $_POST['edit_plant_price'];
 $desc = $_POST['edit_plant_desc'];
 $category = $_POST['edit_plant_category'];
 
-$query = "UPDATE tbl_plants SET plant_name = ?, plant_description = ?, category_id = ? WHERE id = ?";
+$query = "UPDATE tbl_plants SET plant_name = ?, plant_price = ?, plant_description = ?, category_id = ? WHERE id = ?";
 
 if ($stmt = mysqli_prepare($connection, $query)) {
-    mysqli_stmt_bind_param($stmt, "ssii", $name, $desc, $category, $id);
+    mysqli_stmt_bind_param($stmt, "sssii", $name, $price, $desc, $category, $id);
     if (mysqli_stmt_execute($stmt)) {
         echo "Plant Updated Successfully";
     } else {
